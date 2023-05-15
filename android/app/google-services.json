@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "590503331505",
+    "project_id": "tasklendar-dddfa",
+    "storage_bucket": "tasklendar-dddfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590503331505:android:fd61cd0f0a60156660c490",
+        "android_client_info": {
+          "package_name": "tasklendar.com.tasklendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590503331505-4frult5uc1qp9ttt7qahf9jim5fmd7hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxoJ51ttxswj0X-89PVAN0UhR7K_zXJ7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590503331505-4frult5uc1qp9ttt7qahf9jim5fmd7hk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "590503331505-fe1ac8ok4mqbesfiqe4sgff9mthnj5cc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tasklendar.tasklendar"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590503331505:android:8761cbc081aefbab60c490",
+        "android_client_info": {
+          "package_name": "tasklendar.tasklendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590503331505-4frult5uc1qp9ttt7qahf9jim5fmd7hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxoJ51ttxswj0X-89PVAN0UhR7K_zXJ7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590503331505-4frult5uc1qp9ttt7qahf9jim5fmd7hk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "590503331505-fe1ac8ok4mqbesfiqe4sgff9mthnj5cc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tasklendar.tasklendar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

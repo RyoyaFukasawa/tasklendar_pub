@@ -1,0 +1,50 @@
+name: tasklendar
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.5
+  firebase_auth: 4.4.2
+  google_sign_in: 6.1.0
+  cloud_firestore: 4.5.3
+  firebase_core: ^2.11.0
+  gap: 3.0.0
+  font_awesome_flutter: 10.4.0
+  intl: 0.17.0
+  mockito: 5.4.0
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: 2.0.1
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  assets: 
+    - assets/images/icon.png
+    - assets/images/icon_dark.png
+    - assets/images/logo.png
+  fonts: 
+    - family: ZenKakuGothicNew
+      fonts: 
+        - asset: assets/fonts/ZenKakuGothicNew-Regular.ttf
+        - weight: 400
+    - family: FredokaOne
+      fonts: 
+        - asset: assets/fonts/FredokaOne-Regular.ttf
+        - weight: 400
+    - family: EbiharaNoKuseji
+      fonts: 
+        - asset: assets/fonts/EbiharaNoKuseji.ttf
+        - weight: 400
+    - family: MochiyPopOne
+      fonts: 
+        - asset: assets/fonts/MochiyPopOne-Regular.ttf
+        - weight: 400
+  uses-material-design: true
+
