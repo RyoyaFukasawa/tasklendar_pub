@@ -1,0 +1,3 @@
+enum CalendarFilter {
+  showCompleteTodo,
+}
