@@ -10,10 +10,12 @@ abstract class UserDataSource {
     required AuthProvider authProvider,
   });
   Future<UserModel?> fetchUserById(String id);
+  Future<UserModel?> fetchUserByEmail(String email);
   Future<void> updateUser({
     required String id,
     required String email,
     required String status,
     required AuthProvider authProvider,
   });
+  Future<void> deleteUser(String id);
 }

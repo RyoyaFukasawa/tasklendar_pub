@@ -1,5 +1,7 @@
-// Package imports:
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
+
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'change_email_state.freezed.dart';

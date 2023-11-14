@@ -113,6 +113,7 @@ class TodoPage extends HookConsumerWidget {
                     );
                   }
                   final Key key = Key(todo.id);
+                  print(todo);
                   return Container(
                     key: key,
                     child: Container(

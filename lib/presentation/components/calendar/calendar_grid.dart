@@ -375,6 +375,12 @@ class CalendarGrid extends HookConsumerWidget {
 
                               await todoNotifier.sortTodosByDate();
                               await todoNotifier.calculateMonthCellIndex();
+                              final TodoEntity? todoWithMonthCell =
+                                  todoNotifier.getTodoById(todo.id);
+                              if (todoWithMonthCell != null) {
+                                await todoNotifier
+                                    .updateDatabaseTodo(todoWithMonthCell);
+                              }
                             },
                             builder: (context, list, list2) {
                               return Stack(
@@ -507,13 +513,10 @@ class CalendarGrid extends HookConsumerWidget {
                                       //     todo.isDone) {
                                       //   return Container();
                                       // }
-                                      if (todo == null) {
-                                        return Container();
-                                      }
+                                      if (todo == null) return Container();
                                       if (todo.monthCellIndex >=
-                                          _allTodos.length) {
-                                        return Container();
-                                      }
+                                          _allTodos.length) return Container();
+                                      if (todo.date == null) return Container();
 
                                       double width =
                                           calendarPageNotifier.calculateWidth(

@@ -1,4 +1,4 @@
-// Package imports:
+// Project imports:
 import 'package:tasklendar/core/enums/auth_provider.dart';
 
 extension AuthProviderExtension on AuthProvider {

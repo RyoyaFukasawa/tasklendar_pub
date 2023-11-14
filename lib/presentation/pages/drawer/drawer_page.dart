@@ -7,13 +7,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:tasklendar/config/gen/assets.gen.dart';
-import 'package:tasklendar/presentation/pages/my_page/my_page.dart';
 import 'package:uuid/uuid.dart';
 
 // Project imports:
 import 'package:tasklendar/config/constraints/drawer_key.dart';
 import 'package:tasklendar/config/constraints/utils.dart';
+import 'package:tasklendar/config/gen/assets.gen.dart';
 import 'package:tasklendar/config/styles/app_borders.dart';
 import 'package:tasklendar/config/styles/app_colors.dart';
 import 'package:tasklendar/config/styles/app_opacity.dart';
@@ -40,6 +39,7 @@ import 'package:tasklendar/presentation/notifier/view_models/app_page/app_page_n
 import 'package:tasklendar/presentation/notifier/view_models/drawer/drawer_notifier.dart';
 import 'package:tasklendar/presentation/pages/add_group/add_group_page.dart';
 import 'package:tasklendar/presentation/pages/auth/auth_page.dart';
+import 'package:tasklendar/presentation/pages/my_page/my_page.dart';
 import 'package:tasklendar/presentation/provider/datasources/auth_datasource.dart/auth_datasource.dart';
 import 'package:tasklendar/presentation/provider/global_vars/scaffold_key/scaffold_key.dart';
 import 'package:tasklendar/presentation/provider/global_vars/shared_preferences/shared_preferences.dart';

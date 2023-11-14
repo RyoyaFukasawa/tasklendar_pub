@@ -1,14 +1,13 @@
 // Package imports:
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Project imports:
 import 'package:tasklendar/config/constraints/utils.dart';
-import 'package:tasklendar/config/styles/app_colors.dart';
 import 'package:tasklendar/core/enums/comparison_operator.dart';
-import 'package:tasklendar/core/extension/date_time_extension.dart';
+import 'package:tasklendar/core/logs/log.dart';
 import 'package:tasklendar/domain/entities/todo/todo_entity.dart';
-import 'package:uuid/uuid.dart';
+import 'package:tasklendar/domain/repository/todo_repository.dart';
+import 'package:tasklendar/presentation/provider/repository/todo_repository/todo_repository.dart';
 
 part 'todo_notifier.g.dart';
 
@@ -16,70 +15,28 @@ part 'todo_notifier.g.dart';
 class TodoNotifier extends _$TodoNotifier {
   @override
   List<TodoEntity?> build() {
-    return [
-      for (var i = 0; i < 100; i++)
-        TodoEntity(
-          id: const Uuid().v4(),
-          name: 'タスク$i',
-          date: now.truncateTime(),
-          duration: 1,
-          color: AppColors.black,
-          isDone: false,
-          monthCellIndex: i,
-          groupId: null,
-          updatedAt: now,
-          createdAt: now,
-          times: 1,
-          currentTimes: 0,
-        ),
-      // TodoEntity(
-      //   id: const Uuid().v4(),
-      //   name: 'タップしてタスクを完了✓',
-      //   date: now.truncateTime(),
-      //   duration: 1,
-      //   color: AppColors.black,
-      //   isDone: false,
-      //   monthCellIndex: 0,
-      //   groupId: null,
-      //   updatedAt: now,
-      //   createdAt: now,
-      //   times: 1,
-      //   currentTimes: 0,
-      // ),
-      // TodoEntity(
-      //   id: const Uuid().v4(),
-      //   name: '右スライドでタスクを編集',
-      //   date: now.truncateTime(),
-      //   duration: 1,
-      //   color: AppColors.black,
-      //   isDone: false,
-      //   monthCellIndex: 1,
-      //   groupId: null,
-      //   updatedAt: now,
-      //   createdAt: now,
-      //   times: 1,
-      //   currentTimes: 0,
-      // ),
-      // TodoEntity(
-      //   id: const Uuid().v4(),
-      //   name: '左スライドでタスクを削除',
-      //   date: now.truncateTime(),
-      //   duration: 1,
-      //   color: AppColors.black,
-      //   isDone: false,
-      //   monthCellIndex: 2,
-      //   groupId: null,
-      //   updatedAt: now,
-      //   createdAt: now,
-      //   times: 1,
-      //   currentTimes: 0,
-      // ),
-    ];
+    return [];
+  }
+
+  Future<void> updateTodos(List<TodoEntity?> todos) async {
+    state = [...todos];
+    sortTodosByDate();
   }
 
   Future<void> add(TodoEntity todo) async {
     state = [...state, todo];
     sortTodosByDate();
+  }
+
+  Future<void> insert(TodoEntity todo) async {
+    final TodoRepository todoRepository = ref.read(todoRepositoryProvider);
+    try {
+      await todoRepository.insertTodo(
+        todo,
+      );
+    } catch (e) {
+      Log.error(e.toString());
+    }
   }
 
   Future<void> updateTodo(TodoEntity todo) async {
@@ -90,6 +47,19 @@ class TodoNotifier extends _$TodoNotifier {
     state[index] = todo;
 
     state = [...state];
+  }
+
+  Future<void> updateDatabaseTodo(
+    TodoEntity todo,
+  ) async {
+    final TodoRepository todoRepository = ref.read(todoRepositoryProvider);
+    try {
+      await todoRepository.updateTodo(
+        todo,
+      );
+    } catch (e) {
+      Log.error(e.toString());
+    }
   }
 
   void removeTodo(TodoEntity todo) {
@@ -113,6 +83,10 @@ class TodoNotifier extends _$TodoNotifier {
         value,
       );
     }).toList();
+  }
+
+  TodoEntity? getTodoById(String id) {
+    return state.firstWhere((element) => element?.id == id);
   }
 
   List<TodoEntity?> getTodosByProperty({

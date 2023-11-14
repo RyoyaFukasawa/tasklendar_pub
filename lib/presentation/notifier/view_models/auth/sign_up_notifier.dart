@@ -1,9 +1,9 @@
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tasklendar/core/error/firebase_error.dart';
 
 // Project imports:
+import 'package:tasklendar/core/error/firebase_error.dart';
 import 'package:tasklendar/core/logs/log.dart';
 import 'package:tasklendar/domain/entities/user_entity.dart';
 import 'package:tasklendar/domain/repository/auth_repository.dart';

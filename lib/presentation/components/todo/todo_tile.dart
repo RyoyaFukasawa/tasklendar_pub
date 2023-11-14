@@ -1,11 +1,11 @@
 // Flutter imports:
-import 'package:audioplayers/audioplayers.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
+import 'package:audioplayers/audioplayers.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -93,12 +93,17 @@ class TodoTile extends HookConsumerWidget {
             onTap: () async {
               HapticFeedback.mediumImpact();
               if (todo.isDone) {
-                todoNotifier.updateTodo(
-                  todo.copyWith(
-                    isDone: !todo.isDone,
-                    currentTimes: 0,
-                  ),
+                final TodoEntity newTodo = todo.copyWith(
+                  isDone: false,
+                  currentTimes: 0,
                 );
+                await todoNotifier.updateTodo(newTodo);
+                await todoNotifier.calculateMonthCellIndex();
+                final TodoEntity? todoWithMonthCell =
+                    todoNotifier.getTodoById(todo.id);
+                if (todoWithMonthCell != null) {
+                  await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
+                }
                 return;
               }
               if (todo.currentTimes + 1 == todo.times) {
@@ -118,6 +123,11 @@ class TodoTile extends HookConsumerWidget {
                 );
               }
               todoNotifier.calculateMonthCellIndex();
+              final TodoEntity? todoWithMonthCell =
+                  todoNotifier.getTodoById(todo.id);
+              if (todoWithMonthCell != null) {
+                await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
+              }
             },
             child: Container(
               padding: const EdgeInsets.symmetric(

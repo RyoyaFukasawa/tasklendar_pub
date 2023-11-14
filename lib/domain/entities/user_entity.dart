@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:tasklendar/core/enums/auth_provider.dart';
 
 class UserEntity {

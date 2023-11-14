@@ -113,7 +113,7 @@ class DrawerDetailPage extends HookConsumerWidget {
                     snackBarNotifier.updateSnackBarStatus(
                       snackBarState.copyWith(
                         isShown: true,
-                        message: 'Todo deleted',
+                        message: '${todo.name} Deleted',
                         type: SnackBarType.delete,
                       ),
                     );
@@ -123,6 +123,13 @@ class DrawerDetailPage extends HookConsumerWidget {
                   DeleteSlidableAction(
                     onPressed: (BuildContext buildContext) {
                       notifier.removeTodo(todo);
+                      snackBarNotifier.updateSnackBarStatus(
+                        snackBarState.copyWith(
+                          isShown: true,
+                          message: '${todo.name} Deleted',
+                          type: SnackBarType.delete,
+                        ),
+                      );
                     },
                   ),
                 ],

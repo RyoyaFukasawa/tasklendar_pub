@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tasklendar/core/enums/auth_provider.dart';
 
 // Project imports:
+import 'package:tasklendar/core/enums/auth_provider.dart';
 import 'package:tasklendar/core/enums/user_status.dart';
 import 'package:tasklendar/domain/entities/user_entity.dart';
 import 'package:tasklendar/presentation/state/user/user_state.dart';
@@ -23,7 +23,16 @@ class UserNotifier extends _$UserNotifier {
     );
   }
 
-  void updateUser(UserEntity value) {
+  void setDefaultUser() {
+    state = const UserState(
+      id: '',
+      email: '',
+      status: UserStatus.guest,
+      authProvider: AuthProvider.anonymous,
+    );
+  }
+
+  Future<void> updateUser(UserEntity value) async {
     state = UserState(
       id: value.id,
       email: value.email,

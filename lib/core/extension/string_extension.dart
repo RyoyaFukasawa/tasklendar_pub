@@ -1,6 +1,8 @@
 // Package imports:
 import 'package:email_validator/email_validator.dart';
 import 'package:emoji_regex/emoji_regex.dart';
+
+// Project imports:
 import 'package:tasklendar/core/enums/auth_provider.dart';
 
 extension StringExtension on String {

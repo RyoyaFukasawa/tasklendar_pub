@@ -1,6 +1,10 @@
-// Package imports:
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+// Project imports:
 import 'package:tasklendar/domain/entities/user_entity.dart';
 import 'package:tasklendar/domain/repository/auth_repository.dart';
 import 'package:tasklendar/domain/repository/user_repository.dart';

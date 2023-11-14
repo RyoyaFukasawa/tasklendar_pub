@@ -1,16 +1,10 @@
 // Project imports:
 import 'package:tasklendar/data/models/todo_model.dart';
+import 'package:tasklendar/domain/entities/todo/todo_entity.dart';
 
 abstract class TodoDataSource {
   Future<List<TodoModel>> fetchAllTodos();
   Future<TodoModel> fetchTodoById(String id);
-  Future<void> updateTodo(
-    String id, {
-    String? name,
-    DateTime? date,
-    int? duration,
-    bool? isDone,
-    String? groupId,
-    int? monthCellIndex,
-  });
+  Future<void> insertTodo(TodoEntity todo);
+  Future<void> updateTodo(TodoEntity todo);
 }

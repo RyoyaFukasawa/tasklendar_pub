@@ -28,6 +28,12 @@ showCustomSnackBar({
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
+      dismissDirection: DismissDirection.none,
+      // action: SnackBarAction(
+      //   label: '元に戻す',
+      //   textColor: Theme.of(context).colorScheme.background,
+      //   onPressed: () {},
+      // ),
     ),
   );
 }

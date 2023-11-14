@@ -1,11 +1,11 @@
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+// Project imports:
 import 'package:tasklendar/core/enums/auth_provider.dart';
 import 'package:tasklendar/core/extension/string_extension.dart';
 import 'package:tasklendar/core/logs/log.dart';
-
-// Project imports:
 import 'package:tasklendar/data/datasources/auth/auth_datasource.dart';
 import 'package:tasklendar/data/datasources/user/user_datasource.dart';
 import 'package:tasklendar/data/models/user_model.dart';
@@ -200,17 +200,29 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      if (googleUser == null) {
+        return null;
+      }
 
-        //TODO signInとsignUpを区別するか考える。
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       // 新しいクレデンシャルを作成する
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
+
+      final GoogleSignInAccount? user = await GoogleSignIn().signInSilently();
+      final String? email = user?.email;
+
+      final bool isUserExist =
+          await _userDataSource.fetchUserByEmail(email!) != null;
+
+      if (!isUserExist) {
+        return null;
+      }
 
       final userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
@@ -262,6 +274,35 @@ class AuthRepositoryImpl implements AuthRepository {
       return true;
     } catch (e) {
       Log.error(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _authDataSource.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteAccount({
+    AuthCredential? credential,
+  }) async {
+    try {
+      if (credential != null) {
+        await _authDataSource.reAuthenticate(credential: credential);
+      }
+
+      final User? firebaseUser = await _authDataSource.fetchAuthUser();
+
+      await _userDataSource.deleteUser(
+        firebaseUser!.uid,
+      );
+      await _authDataSource.deleteAccount();
+    } catch (e) {
       rethrow;
     }
   }

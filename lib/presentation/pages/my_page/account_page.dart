@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
+
+// Project imports:
 import 'package:tasklendar/config/styles/app_colors.dart';
 import 'package:tasklendar/config/styles/app_themes.dart';
 import 'package:tasklendar/config/styles/app_typography.dart';

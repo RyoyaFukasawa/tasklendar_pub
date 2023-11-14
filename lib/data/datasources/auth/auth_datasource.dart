@@ -13,7 +13,12 @@ abstract class AuthDataSource {
   Future<void> signOut();
   Future<void> sendEmailVerification();
   Future<void> sendPasswordResetEmail({required String email});
-  Future<UserCredential?> signInWithCredential(
-      {required OAuthCredential credential});
+  Future<UserCredential> signInWithCredential(
+      {required AuthCredential credential});
   Future<bool> isEmailAlreadyRegistered({required String email});
+  Future<void> deleteAccount();
+  Future<AuthCredential?> fetchGoogleAuthCredential();
+  Future<void> reAuthenticate({
+    required AuthCredential credential,
+  });
 }

@@ -497,6 +497,11 @@ class AddTodoPage extends HookConsumerWidget {
     await todoNotifier.updateTodo(updatedTodo);
     await todoNotifier.sortTodosByDate();
     await todoNotifier.calculateMonthCellIndex();
+    final TodoEntity? todoWithMonthCell =
+        todoNotifier.getTodoById(updatedTodo.id);
+    if (todoWithMonthCell != null) {
+      await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
+    }
   }
 
   Future<void> _addTodo({
@@ -507,6 +512,10 @@ class AddTodoPage extends HookConsumerWidget {
     await todoNotifier.add(todo);
     await todoNotifier.sortTodosByDate();
     await todoNotifier.calculateMonthCellIndex();
+    final TodoEntity? todoWithMonthCell = todoNotifier.getTodoById(todo.id);
+    if (todoWithMonthCell != null) {
+      await todoNotifier.insert(todoWithMonthCell);
+    }
   }
 
   String _selectedDateText(DateTime? selectedDate, int duration) {

@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+// Project imports:
 import 'package:tasklendar/core/enums/snack_bar_type.dart';
 import 'package:tasklendar/presentation/state/snack_bar/snack_bar_state.dart';
 

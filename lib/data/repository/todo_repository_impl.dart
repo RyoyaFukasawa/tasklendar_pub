@@ -32,15 +32,19 @@ class TodoRepositoryImpl implements TodoRepository {
       final List<TodoEntity> todoList = [];
 
       for (var e in res) {
-        final todoEntity = await _todoFactory.createTodo(
+        final TodoEntity todoEntity = await _todoFactory.createTodo(
           id: e.id,
           name: e.name,
           date: e.date,
           duration: e.duration,
+          times: e.times,
+          currentTimes: e.currentTimes,
           color: e.color,
           isDone: e.isDone,
+          monthCellIndex: e.monthCellIndex,
           groupId: e.groupId,
           updatedAt: e.updatedAt,
+          createdAt: e.createdAt,
         );
         todoList.add(todoEntity);
       }
@@ -63,10 +67,14 @@ class TodoRepositoryImpl implements TodoRepository {
         name: res.name,
         date: res.date,
         duration: res.duration,
+        times: res.times,
+        currentTimes: res.currentTimes,
         color: res.color,
         isDone: res.isDone,
+        monthCellIndex: res.monthCellIndex,
         groupId: res.groupId,
         updatedAt: res.updatedAt,
+        createdAt: res.createdAt,
       );
 
       return todo;
@@ -76,30 +84,21 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<void> insertTodo() {
-    // TODO: implement insertTodo
-    throw UnimplementedError();
+  Future<void> insertTodo(TodoEntity todo) async {
+    try {
+      await _todoDataSource.insertTodo(
+        todo,
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
-  Future<void> updateTodo(
-    String id, {
-    String? name,
-    DateTime? date,
-    int? duration,
-    bool? isDone,
-    String? groupId,
-    int? monthCellIndex,
-  }) async {
+  Future<void> updateTodo(TodoEntity todo) async {
     try {
       await _todoDataSource.updateTodo(
-        id,
-        name: name,
-        date: date,
-        duration: duration,
-        isDone: isDone,
-        groupId: groupId,
-        monthCellIndex: monthCellIndex,
+        todo,
       );
     } catch (e) {
       rethrow;

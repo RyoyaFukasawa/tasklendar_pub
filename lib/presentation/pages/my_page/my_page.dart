@@ -1,12 +1,22 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
+
+// Project imports:
 import 'package:tasklendar/config/styles/app_colors.dart';
 import 'package:tasklendar/config/styles/app_themes.dart';
 import 'package:tasklendar/config/styles/app_typography.dart';
-import 'package:tasklendar/presentation/provider/datasources/auth_datasource.dart/auth_datasource.dart';
+import 'package:tasklendar/presentation/components/bottom_sheet/custom_modal_bottom_sheet.dart';
+import 'package:tasklendar/presentation/navigation/page_navigation.dart';
+import 'package:tasklendar/presentation/notifier/global_vars/snack_bar/snack_bar_notifier.dart';
+import 'package:tasklendar/presentation/notifier/view_models/my_page/my_page_notifier.dart';
+import 'package:tasklendar/presentation/pages/delete_account/delete_account_page.dart';
+import 'package:tasklendar/presentation/state/snack_bar/snack_bar_state.dart';
 
 class MyPage extends HookConsumerWidget {
   const MyPage({super.key});
@@ -14,6 +24,10 @@ class MyPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = AppTheme.colorScheme;
+    final MyPageNotifier viewModel = ref.read(myPageNotifierProvider.notifier);
+    final SnackBarNotifier snackBarNotifier =
+        ref.read(snackBarNotifierProvider.notifier);
+    final SnackBarState snackBarState = ref.read(snackBarNotifierProvider);
 
     return SettingsList(
       lightTheme: SettingsThemeData(
@@ -23,34 +37,6 @@ class MyPage extends HookConsumerWidget {
       ),
       shrinkWrap: true,
       sections: [
-        // SettingsSection(
-        //   tiles: [
-        //     SettingsTile.navigation(
-        //       leading: Icon(
-        //         Symbols.person,
-        //         size: 30,
-        //         color: theme.onBackground,
-        //       ),
-        //       title: Text(
-        //         'Account',
-        //         style: AppTypography.h5,
-        //       ),
-        //       onPressed: (_) {
-        //         showCustomModalBottomSheet(
-        //           key: const Key('account_page'),
-        //           context: context,
-        //           title: 'Account',
-        //           child: (_) {
-        //             return const AccountPage();
-        //           },
-        //           horizontalPadding: 0,
-        //           isScrollControlled: true,
-        //           isBottomNavigationBar: false,
-        //         );
-        //       },
-        //     ),
-        //   ],
-        // ),
         SettingsSection(
           title: Text(
             'Warning',
@@ -82,7 +68,9 @@ class MyPage extends HookConsumerWidget {
                         CupertinoActionSheetAction(
                           onPressed: () {
                             context.pop();
-                            ref.read(authDataSourceProvider).signOut();
+                            viewModel.signOut();
+                            context.pop();
+                            context.goNamed(PageName.signOut);
                           },
                           child: Text(
                             'Sign out',
@@ -118,44 +106,14 @@ class MyPage extends HookConsumerWidget {
                 textAlign: TextAlign.center,
               ),
               onPressed: (_) {
-                showCupertinoModalPopup(
+                showCustomModalBottomSheet(
+                  key: const Key('delete_account'),
                   context: context,
-                  builder: (_) {
-                    return CupertinoActionSheet(
-                      title: Text(
-                        'Delete Account?',
-                        style: AppTypography.h5,
-                      ),
-                      message: Text(
-                        'This action cannot be undone. \nThis will permanently delete your account. \nAre you sure?',
-                        style: AppTypography.body,
-                      ),
-                      actions: [
-                        CupertinoActionSheetAction(
-                          onPressed: () {
-                            context.pop();
-                          },
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(
-                              color: theme.error,
-                            ),
-                          ),
-                        ),
-                      ],
-                      cancelButton: CupertinoActionSheetAction(
-                        onPressed: () {
-                          context.pop();
-                        },
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    );
+                  isScrollControlled: true,
+                  gradient: AppColors.gradient,
+                  closeButtonColor: theme.onBackground,
+                  child: (context) {
+                    return const DeleteAccountPage();
                   },
                 );
               },

@@ -1,3 +1,6 @@
+// Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
+
 // Project imports:
 import 'package:tasklendar/domain/entities/user_entity.dart';
 
@@ -20,4 +23,6 @@ abstract class AuthRepository {
     required String newEmail,
     required String password,
   });
+  Future<void> signOut();
+  Future<void> deleteAccount({AuthCredential? credential});
 }

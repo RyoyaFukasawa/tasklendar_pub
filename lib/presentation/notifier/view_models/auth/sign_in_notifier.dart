@@ -1,9 +1,10 @@
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tasklendar/core/error/firebase_error.dart';
 
 // Project imports:
+import 'package:tasklendar/config/constraints/firebase_auth_error_code.dart';
+import 'package:tasklendar/core/error/firebase_error.dart';
 import 'package:tasklendar/core/logs/log.dart';
 import 'package:tasklendar/domain/entities/user_entity.dart';
 import 'package:tasklendar/domain/repository/auth_repository.dart';
@@ -20,7 +21,7 @@ class SignInNotifier extends _$SignInNotifier {
     return const SignInState(
       isLoading: false,
       isRegistered: false,
-      error: '',
+      error: null,
     );
   }
 
@@ -68,10 +69,10 @@ class SignInNotifier extends _$SignInNotifier {
       final UserEntity? user = await authRepository.googleSignIn();
 
       if (user == null) {
-        FirebaseAuthException(
-          code: 'user-not-found',
+        // signUpしていないユーザーはエラーを返す。
+        throw FirebaseAuthException(
+          code: FirebaseAuthErrorCode.userNotFound,
         );
-        return false;
       }
 
       Log.debug(user.toString());

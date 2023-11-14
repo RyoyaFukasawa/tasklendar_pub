@@ -10,8 +10,12 @@ class CustomLoading extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
-      child: CircularProgressIndicator(
-        color: Theme.of(context).colorScheme.primary,
+      child: SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
     );
   }

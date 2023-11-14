@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Project imports:
 import 'package:tasklendar/data/datasources/todo/todo_datasource.dart';
 import 'package:tasklendar/data/models/todo_model.dart';
+import 'package:tasklendar/domain/entities/todo/todo_entity.dart';
 
 class TodoDataSourceImpl implements TodoDataSource {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -51,35 +52,31 @@ class TodoDataSourceImpl implements TodoDataSource {
   }
 
   @override
-  Future<void> updateTodo(
-    String id, {
-    String? name,
-    DateTime? date,
-    int? duration,
-    bool? isDone,
-    String? groupId,
-    int? monthCellIndex,
-  }) async {
+  Future<void> updateTodo(TodoEntity todo) async {
+    final TodoModel todoModel = TodoModel.fromEntity(todo);
     try {
       final DocumentSnapshot<Map<String, dynamic>> res =
-          await _todoCollection.doc(id).get();
+          await _todoCollection.doc(todoModel.id).get();
 
       if (res.data() == null) {
         throw Exception('Todo not found');
       }
 
-      final TodoModel todo = TodoModel.fromJson(res.data()!);
+      final TodoModel fetchTodo = TodoModel.fromJson(res.data()!);
 
-      await _todoCollection.doc(id).update(
-        {
-          'name': name ?? todo.name,
-          'date': date ?? todo.date,
-          'duration': duration ?? todo.duration,
-          'isDone': isDone ?? todo.isDone,
-          'groupId': groupId ?? todo.groupId,
-          'updatedAt': DateTime.now(),
-        },
-      );
+      await _todoCollection.doc(fetchTodo.id).update(
+            todoModel.toJson(),
+          );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> insertTodo(TodoEntity todo) async {
+    final TodoModel todoModel = TodoModel.fromEntity(todo);
+    try {
+      await _todoCollection.doc(todo.id).set(todoModel.toJson());
     } catch (e) {
       rethrow;
     }

@@ -7,9 +7,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tasklendar/config/gen/assets.gen.dart';
 
 // Project imports:
+import 'package:tasklendar/config/gen/assets.gen.dart';
 import 'package:tasklendar/config/styles/app_colors.dart';
 import 'package:tasklendar/config/styles/app_typography.dart';
 import 'package:tasklendar/core/utils/l10n.dart';
@@ -276,7 +276,7 @@ class SignUpPage extends HookConsumerWidget {
                                 snackBarNotifier.updateSnackBarStatus(
                                   snackBarState.copyWith(
                                     isShown: true,
-                                    message: 'Sign up success!',
+                                    message: 'Sign up success! 👏',
                                   ),
                                 );
                               }

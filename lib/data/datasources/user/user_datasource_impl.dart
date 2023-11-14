@@ -57,6 +57,28 @@ class UserDataSourceImpl implements UserDataSource {
   }
 
   @override
+  Future<UserModel?> fetchUserByEmail(String email) async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>>? res = await _userCollection
+          .where('email', isEqualTo: email)
+          .get()
+          .then((value) {
+        return value.docs.isNotEmpty ? value.docs.first : null;
+      });
+
+      if (res == null) {
+        return null;
+      }
+
+      final UserModel userModel = UserModel.fromJson(res.data()!);
+
+      return userModel;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> updateUser({
     required String id,
     required String email,
@@ -70,6 +92,15 @@ class UserDataSourceImpl implements UserDataSource {
         'authProvider': authProvider.toAuthProviderString(),
         'updatedAt': now,
       });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteUser(String id) async {
+    try {
+      _userCollection.doc(id).delete();
     } catch (e) {
       rethrow;
     }

@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:tasklendar/config/styles/app_colors.dart';
 import 'package:tasklendar/config/styles/app_typography.dart';
 import 'package:tasklendar/core/utils/l10n.dart';

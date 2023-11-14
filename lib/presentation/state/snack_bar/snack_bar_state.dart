@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
 import 'package:tasklendar/core/enums/snack_bar_type.dart';
 
 part 'snack_bar_state.freezed.dart';

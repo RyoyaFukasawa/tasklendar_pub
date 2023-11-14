@@ -33,8 +33,10 @@ import 'package:tasklendar/presentation/notifier/view_models/drawer/drawer_notif
 import 'package:tasklendar/presentation/pages/add_group/add_group_page.dart';
 import 'package:tasklendar/presentation/pages/app_page.dart';
 import 'package:tasklendar/presentation/pages/calendar/calendar_page.dart';
+import 'package:tasklendar/presentation/pages/delete_account/delete_account_complete_page.dart';
 import 'package:tasklendar/presentation/pages/drawer/drawer_detail_page.dart';
 import 'package:tasklendar/presentation/pages/error/error_page.dart';
+import 'package:tasklendar/presentation/pages/sign_out/sign_out_complete_page.dart';
 import 'package:tasklendar/presentation/pages/todo/todo_page.dart';
 import 'package:tasklendar/presentation/state/add_group/add_group_state.dart';
 import 'package:tasklendar/presentation/state/app_page/app_page_state.dart';
@@ -43,12 +45,16 @@ class PageName {
   static const String calendar = 'calendar';
   static const String todo = 'todo';
   static const String groupDetail = 'group_detail';
+  static const String deleteAccountComplete = 'delete_account_complete';
+  static const String signOut = 'sign_out';
 }
 
 class PagePath {
   static const String initial = '/';
   static const String todo = '/todo';
   static const String groupDetail = '/group/detail';
+  static const String deleteAccountComplete = '/delete_account_complete';
+  static const String signOut = '/sign_out';
 }
 
 class PageNavigation {
@@ -162,6 +168,24 @@ class PageNavigation {
             );
           }
           return _instance.errorPage();
+        },
+      ),
+      GoRoute(
+        path: PagePath.deleteAccountComplete,
+        name: PageName.deleteAccountComplete,
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            child: DeleteAccountCompletePage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: PagePath.signOut,
+        name: PageName.signOut,
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            child: SignOutCompletePage(),
+          );
         },
       ),
     ],

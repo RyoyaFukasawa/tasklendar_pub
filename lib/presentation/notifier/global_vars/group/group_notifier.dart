@@ -1,14 +1,8 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
-import 'package:riverpod/src/framework.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Project imports:
-import 'package:tasklendar/config/constraints/utils.dart';
 import 'package:tasklendar/domain/entities/group/group_entity.dart';
-import 'package:tasklendar/domain/entities/todo/todo_entity.dart';
 import 'package:tasklendar/presentation/notifier/global_vars/todo/todo_notifier.dart';
 
 part 'group_notifier.g.dart';
@@ -19,38 +13,7 @@ part 'group_notifier.g.dart';
 class GroupNotifier extends _$GroupNotifier {
   @override
   List<GroupEntity?> build() {
-    return [
-      GroupEntity(
-        id: '1',
-        name: 'test',
-        emoji: '🍙',
-        color: Colors.red,
-        createdAt: now,
-        updatedAt: now,
-        todos: [],
-        order: 1,
-      ),
-      GroupEntity(
-        id: '2',
-        name: 'test',
-        emoji: '😀',
-        color: Colors.green,
-        createdAt: now,
-        updatedAt: now,
-        todos: [],
-        order: 2,
-      ),
-      GroupEntity(
-        id: '3',
-        name: 'test',
-        emoji: '🐔',
-        color: Colors.blue,
-        createdAt: now,
-        updatedAt: now,
-        todos: [],
-        order: 3,
-      ),
-    ];
+    return [];
   }
 
   void removeGroup(String id) {

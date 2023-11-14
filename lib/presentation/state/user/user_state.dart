@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tasklendar/core/enums/auth_provider.dart';
 
 // Project imports:
+import 'package:tasklendar/core/enums/auth_provider.dart';
 import 'package:tasklendar/core/enums/user_status.dart';
 
 part 'user_state.freezed.dart';
