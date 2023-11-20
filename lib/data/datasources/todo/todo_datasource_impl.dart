@@ -73,6 +73,28 @@ class TodoDataSourceImpl implements TodoDataSource {
   }
 
   @override
+  Future<void> updateTodos(List<TodoEntity?> todos) async {
+    try {
+      final WriteBatch batch = _firestore.batch();
+
+      List<TodoEntity> filteredTodos =
+          todos.where((todo) => todo != null).map((todo) => todo!).toList();
+
+      for (final TodoEntity todo in filteredTodos) {
+        final TodoModel todoModel = TodoModel.fromEntity(todo);
+        batch.update(
+          _todoCollection.doc(todoModel.id),
+          todoModel.toJson(),
+        );
+      }
+
+      await batch.commit();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> insertTodo(TodoEntity todo) async {
     final TodoModel todoModel = TodoModel.fromEntity(todo);
     try {
@@ -81,7 +103,7 @@ class TodoDataSourceImpl implements TodoDataSource {
       rethrow;
     }
   }
-  
+
   @override
   Future<void> deleteTodo(TodoEntity todo) {
     try {

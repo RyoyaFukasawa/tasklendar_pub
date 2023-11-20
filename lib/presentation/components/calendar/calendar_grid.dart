@@ -372,15 +372,13 @@ class CalendarGrid extends HookConsumerWidget {
                                   date: DateTime(year, month, dayNumber),
                                 ),
                               );
-
+                              await todoNotifier.updateDatabaseTodo(
+                                todo.copyWith(
+                                  date: DateTime(year, month, dayNumber),
+                                ),
+                              );
                               await todoNotifier.sortTodosByDate();
                               await todoNotifier.calculateMonthCellIndex();
-                              final TodoEntity? todoWithMonthCell =
-                                  todoNotifier.getTodoById(todo.id);
-                              if (todoWithMonthCell != null) {
-                                await todoNotifier
-                                    .updateDatabaseTodo(todoWithMonthCell);
-                              }
                             },
                             builder: (context, list, list2) {
                               return Stack(

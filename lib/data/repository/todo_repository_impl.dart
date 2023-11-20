@@ -109,4 +109,15 @@ class TodoRepositoryImpl implements TodoRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> updateTodos(List<TodoEntity?> todos) async {
+    try {
+      await _todoDataSource.updateTodos(
+        todos,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

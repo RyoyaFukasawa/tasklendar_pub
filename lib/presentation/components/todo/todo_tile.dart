@@ -98,12 +98,8 @@ class TodoTile extends HookConsumerWidget {
                   currentTimes: 0,
                 );
                 await todoNotifier.updateTodo(newTodo);
+                await todoNotifier.updateDatabaseTodo(newTodo);
                 await todoNotifier.calculateMonthCellIndex();
-                final TodoEntity? todoWithMonthCell =
-                    todoNotifier.getTodoById(todo.id);
-                if (todoWithMonthCell != null) {
-                  await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
-                }
                 return;
               }
               if (todo.currentTimes + 1 == todo.times) {
@@ -123,11 +119,11 @@ class TodoTile extends HookConsumerWidget {
                 );
               }
               todoNotifier.calculateMonthCellIndex();
-              final TodoEntity? todoWithMonthCell =
-                  todoNotifier.getTodoById(todo.id);
-              if (todoWithMonthCell != null) {
-                await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
-              }
+              // final TodoEntity? todoWithMonthCell =
+              //     todoNotifier.getTodoById(todo.id);
+              // if (todoWithMonthCell != null) {
+              //   await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
+              // }
             },
             child: Container(
               padding: const EdgeInsets.symmetric(

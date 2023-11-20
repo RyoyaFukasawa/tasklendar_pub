@@ -495,13 +495,9 @@ class AddTodoPage extends HookConsumerWidget {
   }) async {
     final TodoNotifier todoNotifier = ref.read(todoNotifierProvider.notifier);
     await todoNotifier.updateTodo(updatedTodo);
+    await todoNotifier.updateDatabaseTodo(updatedTodo);
     await todoNotifier.sortTodosByDate();
     await todoNotifier.calculateMonthCellIndex();
-    final TodoEntity? todoWithMonthCell =
-        todoNotifier.getTodoById(updatedTodo.id);
-    if (todoWithMonthCell != null) {
-      await todoNotifier.updateDatabaseTodo(todoWithMonthCell);
-    }
   }
 
   Future<void> _addTodo({
@@ -510,12 +506,8 @@ class AddTodoPage extends HookConsumerWidget {
   }) async {
     final TodoNotifier todoNotifier = ref.read(todoNotifierProvider.notifier);
     await todoNotifier.add(todo);
-    await todoNotifier.sortTodosByDate();
+    await todoNotifier.insert(todo);
     await todoNotifier.calculateMonthCellIndex();
-    final TodoEntity? todoWithMonthCell = todoNotifier.getTodoById(todo.id);
-    if (todoWithMonthCell != null) {
-      await todoNotifier.insert(todoWithMonthCell);
-    }
   }
 
   String _selectedDateText(DateTime? selectedDate, int duration) {

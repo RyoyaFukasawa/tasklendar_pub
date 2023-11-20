@@ -128,7 +128,7 @@ class MorePage extends HookConsumerWidget {
                           ),
                         );
                         context.goNamed(PageName.calendar);
-                        groupNotifier.removeGroup(_group.id);
+                        groupNotifier.removeGroup(_group);
                         todoNotifier.calculateMonthCellIndex();
                         context.pop();
                       },

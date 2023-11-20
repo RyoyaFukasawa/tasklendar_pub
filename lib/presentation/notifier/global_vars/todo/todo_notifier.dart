@@ -64,6 +64,15 @@ class TodoNotifier extends _$TodoNotifier {
     }
   }
 
+  Future<void> updateAllTodos(List<TodoEntity?> todos) async {
+    final TodoRepository todoRepository = ref.read(todoRepositoryProvider);
+    try {
+      await todoRepository.updateTodos(todos);
+    } catch (e) {
+      Log.error(e.toString());
+    }
+  }
+
   Future<void> removeTodo(TodoEntity todo) async {
     state = state.where((element) => element?.id != todo.id).toList();
   }
@@ -248,5 +257,7 @@ class TodoNotifier extends _$TodoNotifier {
 
       await updateTodo(updatedTodo);
     }
+
+    await updateAllTodos(state);
   }
 }
