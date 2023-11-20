@@ -19,11 +19,12 @@ class TodoPageNotifier extends _$TodoPageNotifier {
     state = state.copyWith(todos: todos);
   }
 
-  void removeTodo(TodoEntity todo) {
+  Future<void> removeTodo(TodoEntity todo) async {
     state = state.copyWith(
       todos: state.todos.where((element) => element != todo).toList(),
     );
     final todoNotifier = ref.read(todoNotifierProvider.notifier);
-    todoNotifier.removeTodo(todo);
+    await todoNotifier.removeTodo(todo);
+    await todoNotifier.deleteTodo(todo);
   }
 }

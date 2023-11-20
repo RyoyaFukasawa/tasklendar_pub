@@ -23,8 +23,8 @@ class GroupModel {
         name: json['name'],
         emoji: json['emoji'],
         color: json['color'],
-        createdAt: json['createdAt'],
-        updatedAt: json['updatedAt'],
+        createdAt: DateTime.parse(json['createdAt'].toDate().toString()),
+        updatedAt: DateTime.parse(json['updatedAt'].toDate().toString()),
       );
 
   factory GroupModel.fromEntity(GroupEntity entity) => GroupModel(

@@ -32,7 +32,9 @@ class TodoModel {
   factory TodoModel.fromJson(Map<String, dynamic> json) => TodoModel(
         id: json["id"],
         name: json["name"],
-        date: DateTime.parse(json["date"].toDate().toString()),
+        date: json["date"] != null
+            ? DateTime.parse(json["date"].toDate().toString())
+            : null,
         duration: json["duration"],
         times: json["times"],
         currentTimes: json["currentTimes"],

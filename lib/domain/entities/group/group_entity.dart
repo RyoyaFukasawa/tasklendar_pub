@@ -18,7 +18,7 @@ abstract class GroupEntity with _$GroupEntity {
     required Color color,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required List<TodoEntity?> todos,
+    // required List<TodoEntity?> todos,
     int? order, // 0 is the highest, null is the lowest
   }) = _GroupEntity;
 }

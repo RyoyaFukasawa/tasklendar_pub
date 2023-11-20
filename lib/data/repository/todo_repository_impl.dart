@@ -17,12 +17,6 @@ class TodoRepositoryImpl implements TodoRepository {
   final TodoFactory _todoFactory;
 
   @override
-  Future<void> deleteTodo() {
-    // TODO: implement deleteTodo
-    throw UnimplementedError();
-  }
-
-  @override
   Future<List<TodoEntity>> fetchAllTodos() async {
     try {
       final List<TodoModel> res = await _todoDataSource.fetchAllTodos();
@@ -78,6 +72,17 @@ class TodoRepositoryImpl implements TodoRepository {
       );
 
       return todo;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteTodo(TodoEntity todo) async {
+    try {
+      await _todoDataSource.deleteTodo(
+        todo,
+      );
     } catch (e) {
       rethrow;
     }

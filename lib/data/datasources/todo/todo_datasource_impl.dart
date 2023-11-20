@@ -81,4 +81,13 @@ class TodoDataSourceImpl implements TodoDataSource {
       rethrow;
     }
   }
+  
+  @override
+  Future<void> deleteTodo(TodoEntity todo) {
+    try {
+      return _todoCollection.doc(todo.id).delete();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -15,6 +15,7 @@ import 'package:tasklendar/config/styles/app_opacity.dart';
 import 'package:tasklendar/config/styles/app_themes.dart';
 import 'package:tasklendar/config/styles/app_typography.dart';
 import 'package:tasklendar/core/enums/nav_extra.dart';
+import 'package:tasklendar/core/enums/snack_bar_type.dart';
 import 'package:tasklendar/core/extension/date_time_extension.dart';
 import 'package:tasklendar/core/utils/screen.dart';
 import 'package:tasklendar/domain/entities/todo/todo_entity.dart';
@@ -26,11 +27,13 @@ import 'package:tasklendar/presentation/components/slidable_action/edit_slidable
 import 'package:tasklendar/presentation/components/todo/todo_tile.dart';
 import 'package:tasklendar/presentation/navigation/page_navigation.dart';
 import 'package:tasklendar/presentation/notifier/global_vars/current_month/current_month_notifier.dart';
+import 'package:tasklendar/presentation/notifier/global_vars/snack_bar/snack_bar_notifier.dart';
 import 'package:tasklendar/presentation/notifier/global_vars/todo/todo_notifier.dart';
 import 'package:tasklendar/presentation/notifier/view_models/app_page/app_page_notifier.dart';
 import 'package:tasklendar/presentation/notifier/view_models/todo/todo_page_notifier.dart';
 import 'package:tasklendar/presentation/pages/add_todo/add_todo_page.dart';
 import 'package:tasklendar/presentation/state/app_page/app_page_state.dart';
+import 'package:tasklendar/presentation/state/snack_bar/snack_bar_state.dart';
 
 class TodoPage extends HookConsumerWidget {
   const TodoPage({
@@ -50,6 +53,9 @@ class TodoPage extends HookConsumerWidget {
       initialPage: 5000,
     );
     final DateTime currentMonth = ref.watch(currentMonthNotifierProvider);
+    final SnackBarNotifier snackBarNotifier =
+        ref.read(snackBarNotifierProvider.notifier);
+    final SnackBarState snackBarState = ref.watch(snackBarNotifierProvider);
 
     final notifier = ref.read(todoPageNotifierProvider.notifier);
     final state = ref.watch(todoPageNotifierProvider);
@@ -113,7 +119,6 @@ class TodoPage extends HookConsumerWidget {
                     );
                   }
                   final Key key = Key(todo.id);
-                  print(todo);
                   return Container(
                     key: key,
                     child: Container(
@@ -132,14 +137,28 @@ class TodoPage extends HookConsumerWidget {
                           extentRatio: 0.2,
                           motion: const ScrollMotion(),
                           dismissible: DismissiblePane(
-                            onDismissed: () {
-                              notifier.removeTodo(todo);
+                            onDismissed: () async {
+                              await notifier.removeTodo(todo);
+                              snackBarNotifier.updateSnackBarStatus(
+                                snackBarState.copyWith(
+                                  isShown: true,
+                                  message: '${todo.name} Deleted',
+                                  type: SnackBarType.delete,
+                                ),
+                              );
                             },
                           ),
                           children: [
                             DeleteSlidableAction(
-                              onPressed: (BuildContext buildContext) {
-                                notifier.removeTodo(todo);
+                              onPressed: (BuildContext buildContext) async {
+                                await notifier.removeTodo(todo);
+                                snackBarNotifier.updateSnackBarStatus(
+                                  snackBarState.copyWith(
+                                    isShown: true,
+                                    message: '${todo.name} Deleted',
+                                    type: SnackBarType.delete,
+                                  ),
+                                );
                               },
                             ),
                           ],

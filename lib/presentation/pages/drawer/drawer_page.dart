@@ -591,8 +591,7 @@ class DrawerPage extends HookConsumerWidget {
                                                         context.goNamed(
                                                             PageName.calendar);
                                                         groupNotifier
-                                                            .removeGroup(
-                                                                group.id);
+                                                            .removeGroup(group);
                                                         todoNotifier
                                                             .calculateMonthCellIndex();
                                                         context.pop();
@@ -665,7 +664,7 @@ class DrawerPage extends HookConsumerWidget {
                           enableSaveButton: true,
                           initialSaveButtonState: false,
                           isBottomNavigationBar: false,
-                          onSaveButtonPressed: (context, ref) {
+                          onSaveButtonPressed: (context, ref) async {
                             final AddGroupState addGroupState =
                                 ref.read(addGroupNotifierProvider);
                             if (addGroupState.formKey.currentState!
@@ -675,13 +674,15 @@ class DrawerPage extends HookConsumerWidget {
                                 name: addGroupState.name,
                                 emoji: addGroupState.emoji,
                                 color: addGroupState.color,
-                                todos: [],
                                 createdAt: now,
                                 updatedAt: now,
                               );
-                              groupNotifier.addGroup(newGroup);
+                              await groupNotifier.addGroup(newGroup).then(
+                                    (value) => context.pop(),
+                                  );
+                            } else {
+                              context.pop(true);
                             }
-                            context.pop(true);
                           },
                           child: (_) {
                             return AddGroupPage(

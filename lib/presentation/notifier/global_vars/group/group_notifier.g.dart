@@ -6,7 +6,7 @@ part of 'group_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$groupNotifierHash() => r'3d9f9fd3131337c1c3a20a2461e5374ef492f413';
+String _$groupNotifierHash() => r'5b1abdcf68af75c609ce3732bd007cdedf103819';
 
 /// See also [GroupNotifier].
 @ProviderFor(GroupNotifier)

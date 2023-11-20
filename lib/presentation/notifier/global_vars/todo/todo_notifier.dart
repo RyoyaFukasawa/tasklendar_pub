@@ -28,6 +28,7 @@ class TodoNotifier extends _$TodoNotifier {
     sortTodosByDate();
   }
 
+  // calculateMonthCellIndexを行った後にfirebaseに保存するためadd()とは別で作成
   Future<void> insert(TodoEntity todo) async {
     final TodoRepository todoRepository = ref.read(todoRepositoryProvider);
     try {
@@ -49,6 +50,7 @@ class TodoNotifier extends _$TodoNotifier {
     state = [...state];
   }
 
+  // calculateMonthCellIndexを行った後にfirebaseに保存するためupdateTodo()とは別で作成
   Future<void> updateDatabaseTodo(
     TodoEntity todo,
   ) async {
@@ -62,8 +64,21 @@ class TodoNotifier extends _$TodoNotifier {
     }
   }
 
-  void removeTodo(TodoEntity todo) {
+  Future<void> removeTodo(TodoEntity todo) async {
     state = state.where((element) => element?.id != todo.id).toList();
+  }
+
+  Future<void> deleteTodo(
+    TodoEntity todo,
+  ) async {
+    final TodoRepository todoRepository = ref.read(todoRepositoryProvider);
+    try {
+      await todoRepository.deleteTodo(
+        todo,
+      );
+    } catch (e) {
+      Log.error(e.toString());
+    }
   }
 
   void clear() {

@@ -7,4 +7,5 @@ abstract class TodoDataSource {
   Future<TodoModel> fetchTodoById(String id);
   Future<void> insertTodo(TodoEntity todo);
   Future<void> updateTodo(TodoEntity todo);
+  Future<void> deleteTodo(TodoEntity todo);
 }

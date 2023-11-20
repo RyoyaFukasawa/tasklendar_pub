@@ -10,6 +10,8 @@ abstract class GroupFactory {
     required String name,
     required Color color,
     required String emoji,
+    required DateTime createdAt,
+    required DateTime updatedAt,
   });
 
   Future<GroupEntity?> createGroupFromId({

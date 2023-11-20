@@ -6,5 +6,5 @@ abstract class TodoRepository {
   Future<TodoEntity> fetchTodoById(String id);
   Future<void> insertTodo(TodoEntity todoEntity);
   Future<void> updateTodo(TodoEntity todo);
-  Future<void> deleteTodo();
+  Future<void> deleteTodo(TodoEntity todo);
 }

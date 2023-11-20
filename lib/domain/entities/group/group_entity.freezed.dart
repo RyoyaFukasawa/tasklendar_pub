@@ -21,8 +21,8 @@ mixin _$GroupEntity {
   String get emoji => throw _privateConstructorUsedError;
   Color get color => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  List<TodoEntity?> get todos => throw _privateConstructorUsedError;
+  DateTime get updatedAt =>
+      throw _privateConstructorUsedError; // required List<TodoEntity?> todos,
   int? get order => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -43,7 +43,6 @@ abstract class $GroupEntityCopyWith<$Res> {
       Color color,
       DateTime createdAt,
       DateTime updatedAt,
-      List<TodoEntity?> todos,
       int? order});
 }
 
@@ -66,7 +65,6 @@ class _$GroupEntityCopyWithImpl<$Res, $Val extends GroupEntity>
     Object? color = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? todos = null,
     Object? order = freezed,
   }) {
     return _then(_value.copyWith(
@@ -94,10 +92,6 @@ class _$GroupEntityCopyWithImpl<$Res, $Val extends GroupEntity>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      todos: null == todos
-          ? _value.todos
-          : todos // ignore: cast_nullable_to_non_nullable
-              as List<TodoEntity?>,
       order: freezed == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
@@ -121,7 +115,6 @@ abstract class _$$_GroupEntityCopyWith<$Res>
       Color color,
       DateTime createdAt,
       DateTime updatedAt,
-      List<TodoEntity?> todos,
       int? order});
 }
 
@@ -142,7 +135,6 @@ class __$$_GroupEntityCopyWithImpl<$Res>
     Object? color = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? todos = null,
     Object? order = freezed,
   }) {
     return _then(_$_GroupEntity(
@@ -170,10 +162,6 @@ class __$$_GroupEntityCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      todos: null == todos
-          ? _value._todos
-          : todos // ignore: cast_nullable_to_non_nullable
-              as List<TodoEntity?>,
       order: freezed == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
@@ -192,9 +180,7 @@ class _$_GroupEntity implements _GroupEntity {
       required this.color,
       required this.createdAt,
       required this.updatedAt,
-      required final List<TodoEntity?> todos,
-      this.order})
-      : _todos = todos;
+      this.order});
 
   @override
   final String id;
@@ -208,20 +194,13 @@ class _$_GroupEntity implements _GroupEntity {
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
-  final List<TodoEntity?> _todos;
-  @override
-  List<TodoEntity?> get todos {
-    if (_todos is EqualUnmodifiableListView) return _todos;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_todos);
-  }
-
+// required List<TodoEntity?> todos,
   @override
   final int? order;
 
   @override
   String toString() {
-    return 'GroupEntity(id: $id, name: $name, emoji: $emoji, color: $color, createdAt: $createdAt, updatedAt: $updatedAt, todos: $todos, order: $order)';
+    return 'GroupEntity(id: $id, name: $name, emoji: $emoji, color: $color, createdAt: $createdAt, updatedAt: $updatedAt, order: $order)';
   }
 
   @override
@@ -237,13 +216,12 @@ class _$_GroupEntity implements _GroupEntity {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._todos, _todos) &&
             (identical(other.order, order) || other.order == order));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, emoji, color,
-      createdAt, updatedAt, const DeepCollectionEquality().hash(_todos), order);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, emoji, color, createdAt, updatedAt, order);
 
   @JsonKey(ignore: true)
   @override
@@ -260,7 +238,6 @@ abstract class _GroupEntity implements GroupEntity {
       required final Color color,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final List<TodoEntity?> todos,
       final int? order}) = _$_GroupEntity;
 
   @override
@@ -275,9 +252,7 @@ abstract class _GroupEntity implements GroupEntity {
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
-  @override
-  List<TodoEntity?> get todos;
-  @override
+  @override // required List<TodoEntity?> todos,
   int? get order;
   @override
   @JsonKey(ignore: true)

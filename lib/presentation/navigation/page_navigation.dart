@@ -518,7 +518,7 @@ class PageNavigation {
                                   ),
                                 );
                                 context.goNamed(PageName.calendar);
-                                groupNotifier.removeGroup(group.id);
+                                groupNotifier.removeGroup(group);
                                 todoNotifier.calculateMonthCellIndex();
                                 context.pop();
                               },
